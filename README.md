@@ -1,4 +1,4 @@
-#   [BlueprintWebSocket]([https://www.unrealengine.com/marketplace/en-US/product/blueprintwebsocket](https://www.unrealengine.com/marketplace/en-US/product/blueprintwebsocket)) - Documentation 
+#   [BlueprintWebSocket](https://www.unrealengine.com/marketplace/en-US/product/blueprintwebsocket) - Documentation 
 |Table of content|
 |:---:|
 |[Blueprints](#blueprints)|
@@ -16,12 +16,12 @@ BlueprintWebSocket requires you to include only one file:
 ```cpp
 #include "BlueprintWebSocketWrapper.h"
 ```
-### Create a new WebSocket 
+### Creating a new WebSocket 
 BlueprintWebSocket provides an easy way to create a socket:
 ```cpp
 UBlueprintWebSocket* const WebSocket = UBlueprintWebSocket::CreateWebSocket();
 ```
-### Configure the WebSocket
+### Configuring the WebSocket
 Now that the WebSocket is created, we can configure it to talk with our WebSocket server.
 Here is an exhaustive list of functions available for modifying the headers sent during the connection:
  ```cpp
@@ -34,7 +34,7 @@ WebSocket->AddHeader(const FString & Header, const FString & Value);
 // Remove the header from the header list
 WebSocket->RemoveHeader(const FString & HeaderToRemove);
 ```
-### Listen to events with Callbacks
+### Listening to events with Callbacks
 As the WebSocket is asynchronous, we need to listen to events to react to connection, connection error or messages.
 Here is a list of the events and their signature:
 |Event Name|Signature|Description|
@@ -120,6 +120,8 @@ WebSocket->SendRawMessage(BinaryMessage);
 ### Full Example
 ##### MyClass.h
 ```cpp
+#pragma once
+
 #include "CoreMinimal"
 #include "MyClass.generated.h"
 
