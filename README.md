@@ -45,6 +45,7 @@ Here is a list of the events and their signature:
 |`OnMessageEvent`|`void Func(const FString & Message)`| Called when we received a string message.
 |`OnRawMessageEvent`|`void Func(const TArray<uint8> & Data, int32 BytesRemaining)`|Called when we received a binary message.
 |`OnMessageSentEvent`|`void Func(const FString & Message)`|Called just after we sent a message.
+
 The WebSocket events are `Dynamic Multicast Delegates`, it requires the function bound to be declared as `UFUNCTION()`:
 ```cpp
 UCLASS()
