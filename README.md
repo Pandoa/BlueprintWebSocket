@@ -6,10 +6,15 @@
 |[Support](#support)|
 
 ## Blueprints
-### Asynchronous helper nodes
-Coming soon...
-### Full Blueprints
-Coming soon...
+### Connecting to a WebSocket server
+Using the helper node, it's really fast to connect to a WebSocket server:
+
+![Blueprint connection example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServer.png?raw=true)
+
+You can also use the raw functions to have the same access as if you were coding in C++. This is longer but allows you to bind functions to events:
+![Blueprint connection example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServerWithoutHelper.png?raw=true)
+### Sending Data
+![Blueprint send message example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/SendMessage.png?raw=true)
 ## C++
 ### Include
 BlueprintWebSocket requires you to include only one file:
