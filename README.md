@@ -14,6 +14,10 @@ You can also use the raw functions to have the same access as if you were coding
 ![Blueprint connection example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServerWithoutHelper.png?raw=true)
 ### Sending Data
 ![Blueprint send message example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/SendMessage.png?raw=true)
+### Automatically Reconnect on Error
+You can easily automatically reconnect to your server when a network error happens with the helper nodes:
+
+![Blueprint Reconnect](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/AutoReconnect.png?raw=true)
 ## C++
 ### Include
 BlueprintWebSocket requires you to include only one file:
