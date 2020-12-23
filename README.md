@@ -231,8 +231,8 @@ void UMyClass::OnMessageSent(const FString & Message)
 ```
 
 ## Troubleshoting
-### `SSL error: unable to get local issuer certificate`
-This error happens because the SSL certificate is not packaged in the packaged version of your game. To add the certificate to the packaged version, you need to do the following:
+### Failed to connect: `SSL error: unable to get local issuer certificate`
+This error happens because the SSL certificate is not included in the packaged version of your game. To add the certificate to the packaged version, you need to do the following:
 1. Copy the .pem certificate file to the location `<Project>/Content/Certificates/cacert.pem`.
 2. Add the certificate to the files to copy into the packaged build into `Settings` > `Packaging` > `Packaging` > `Additional Non-Assets Directories To Copy`.
 
