@@ -2,8 +2,8 @@
 ## Table of content
 1. [Blueprints](#blueprints)
 2. [C++](#c)
-3. [Support](#support)
-4. [Troubleshoting](#troubleshoting)
+3. [Troubleshoting](#troubleshoting)
+4. [Support](#support)
 
 ## Blueprints
 ### Connecting to a WebSocket server
