@@ -239,3 +239,4 @@ This error happens because the SSL certificate is not included in the packaged v
 
 ## Support
 If you need help, have a feature request or experience troubles, please contact us at [pandores.marketplace@gmail.com](mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20).
+
