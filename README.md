@@ -35,13 +35,13 @@ UBlueprintWebSocket* const WebSocket = UBlueprintWebSocket::CreateWebSocket();
 Now that the WebSocket is created, we can configure it to talk with our WebSocket server.
 Here is an exhaustive list of functions available for modifying the headers sent during the connection:
  ```cpp
-// Merge the provided map with the current header list.
+// Merges the provided map with the current header list.
 WebSocket->SetHeaders(const TMap<FString, FString> & InHeaders);
 
-// Add a pair Key / Value to the list of headers.
+// Adds a pair Key / Value to the list of headers.
 WebSocket->AddHeader(const FString & Header, const FString & Value);
 
-// Remove the header from the header list
+// Removes the header from the header list
 WebSocket->RemoveHeader(const FString & HeaderToRemove);
 ```
 ### Listening to events with Callbacks
@@ -141,10 +141,10 @@ WebSocket->SendRawMessage(BinaryMessage);
 class UBlueprintWebSocket;
 
 /**
- *  Our custom class that use a WebSocket.
+ *  Our custom class that uses a WebSocket.
  **/
 UCLASS()
-class MYGAME_API UMyClass : public UObject
+class <MYGAME>_API UMyClass : public UObject
 {
     GENERATED_BODY()
 public:
@@ -153,12 +153,18 @@ public:
     void InitializeAndConnectSocket();
 private:
 	// Callbacks
-    UFUNCTION() void OnConnected();
-    UFUNCTION() void OnConnectionError(const FString & Error);
-    UFUNCTION() void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
-    UFUNCTION() void OnMessage(const FString & Message);
-    UFUNCTION() void OnRawMessage(const TArray<uint8> & Data, int32 BytesRemaining);
-    UFUNCTION() void OnMessageSent(const FString & Message);
+    UFUNCTION() 
+    void OnConnected();
+    UFUNCTION() 
+    void OnConnectionError(const FString & Error);
+    UFUNCTION() 
+    void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
+    UFUNCTION() 
+    void OnMessage(const FString & Message);
+    UFUNCTION()
+    void OnRawMessage(const TArray<uint8> & Data, int32 BytesRemaining);
+    UFUNCTION()
+    void OnMessageSent(const FString & Message);
 private:
     // The WebSocket, marking it as UPROPERTY prenvents it 
     // from being garbage collected as actions are latent.
