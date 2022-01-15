@@ -21,6 +21,14 @@ You can easily automatically reconnect to your server when a network error happe
 
 ![Blueprint Reconnect](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/AutoReconnect.png?raw=true)
 ## C++
+
+### Adding the Module
+Open your project's `<ProjectName>.Build.cs` and add the following line of code:
+
+```cpp
+PublicDependencyModuleNames.Add("BlueprintWebSocket");
+```
+
 ### Include
 BlueprintWebSocket requires you to include only one file:
 ```cpp
@@ -83,7 +91,7 @@ void UMyClass::BindEvents()
     // Bind the events so our functions are called when the event is triggered.
     WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
     WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
-    WebSocket->OnClosedEvent         .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
     WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
     WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
     WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
@@ -185,7 +193,7 @@ void UMyClass::InitializeAndConnectSocket()
     // Bind the events so our functions are called when the events are triggered.
     WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
     WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
-    WebSocket->OnClosedEvent         .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
     WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
     WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
     WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
