@@ -25,7 +25,7 @@ You can easily automatically reconnect to your server when a network error happe
 ### Adding the Module
 Open your project's `<ProjectName>.Build.cs` and add the following line of code:
 
-```cpp
+```csharp
 PublicDependencyModuleNames.Add("BlueprintWebSocket");
 ```
 
