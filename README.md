@@ -8,7 +8,7 @@
 
 ## Blueprints
 ### Connecting to a WebSocket server
-Using the helper node, it's really fast to connect to a WebSocket server:
+Using the helper node, it's really fast to connect to a WebSocket server: 
 
 ![Blueprint connection example](https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServer.png?raw=true)
 
