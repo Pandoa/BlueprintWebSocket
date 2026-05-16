@@ -1,127 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/index.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/index.html</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-5-websocket-plugin.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-5-websocket-plugin.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/secure-wss-unreal-engine-connection.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/secure-wss-unreal-engine-connection.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/connect-unreal-engine-to-twitch-chat.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/connect-unreal-engine-to-twitch-chat.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-nodejs-websocket-integration.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-nodejs-websocket-integration.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/real-time-json-websockets-unreal-engine.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/real-time-json-websockets-unreal-engine.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-multiplayer-matchmaking.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-multiplayer-matchmaking.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/ue5-dedicated-server-websocket-architecture.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/ue5-dedicated-server-websocket-architecture.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-chat-system.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-chat-system.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-python-websocket-backend-integration.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-python-websocket-backend-integration.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-binary-data-byte-arrays.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-binary-data-byte-arrays.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-http-vs-websocket-networking.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-http-vs-websocket-networking.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-live-leaderboards-websockets.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-live-leaderboards-websockets.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-authentication-jwt.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-authentication-jwt.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-discord-bot-websocket-integration.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-discord-bot-websocket-integration.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/websocket-reconnection-logic-unreal-engine-5.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/websocket-reconnection-logic-unreal-engine-5.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-ai-backend-streaming-websockets.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-ai-backend-streaming-websockets.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-mmo-zone-server-communication.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-mmo-zone-server-communication.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-voice-chat-signaling.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-voice-chat-signaling.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-crypto-price-feed-websockets.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-crypto-price-feed-websockets.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-analytics-event-tracking.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-analytics-event-tracking.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-mobile-websocket-optimization.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-mobile-websocket-optimization.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-rpc-command-system.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-rpc-command-system.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-ping-pong-heartbeat-system.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-ping-pong-heartbeat-system.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pandoa.github.com/BlueprintWebSocket/unreal-engine-websocket-spectator-mode-synchronization.html</loc>
+    <loc>https://pandoa.github.io/BlueprintWebSocket/unreal-engine-websocket-spectator-mode-synchronization.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
