@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Connecting UE5 Dedicated Servers via WebSockets — Developer Guide</title>
+    <meta name="description" content="Architect communication pipelines between headful/headless Unreal Engine dedicated servers and master database clusters using asynchronous WebSockets.">
+    <meta name="keywords" content="UE5 dedicated server backend, headless unreal networking, server database sync, websocket server, BlueprintWebSocket, Unreal Engine, WebSockets, Blueprints, C++">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://github.com/Pandoa/BlueprintWebSocket/docs/ue5-dedicated-server-websocket-architecture">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Pandoa/BlueprintWebSocket/docs/ue5-dedicated-server-websocket-architecture">
+    <meta property="og:title" content="Connecting UE5 Dedicated Servers via WebSockets — Developer Guide">
+    <meta property="og:description" content="Architect communication pipelines between headful/headless Unreal Engine dedicated servers and master database clusters using asynchronous WebSockets.">
+    <meta property="og:image" content="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServer.png?raw=true">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://github.com/Pandoa/BlueprintWebSocket/docs/ue5-dedicated-server-websocket-architecture">
+    <meta property="twitter:title" content="Connecting UE5 Dedicated Servers via WebSockets — Developer Guide">
+    <meta property="twitter:description" content="Architect communication pipelines between headful/headless Unreal Engine dedicated servers and master database clusters using asynchronous WebSockets.">
+    <meta property="twitter:image" content="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServer.png?raw=true">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --sidebar-bg: #000000;
+            --main-bg: #000000;
+            --text-color: #ffffff;
+            --text-muted: #a1a1a6;
+            --accent-color: #2997ff;
+            --accent-hover: #51a8ff;
+            --border-color: #262629;
+            --code-bg: #111112;
+            --warning-bg: #1c1c1e;
+            --warning-border: #ffd60a;
+            --warning-text: #ffd60a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: -.022em;
+            display: flex;
+        }
+
+        aside {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            padding: 4rem 2rem 2rem 3rem;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        aside ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+
+        aside li {
+            margin-bottom: 0.25rem;
+        }
+
+        aside a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            margin-left: -0.75rem;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+
+        aside a:hover {
+            color: #ffffff;
+            background-color: #1c1c1e;
+        }
+
+        main {
+            margin-left: 280px;
+            max-width: 920px;
+            width: calc(100% - 280px);
+            padding: 4rem 5rem 4rem 3rem;
+            border-left: 1px solid var(--border-color);
+            min-height: 100vh;
+        }
+
+        .doc-header {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .doc-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -.04em;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .doc-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: -.015em;
+        }
+
+        .doc-header .subtitle a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .doc-header .subtitle a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 4.5rem;
+            scroll-margin-top: 4rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -.021em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+            color: #ffffff;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -.011em;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: #e8e8ed;
+            font-size: 1rem;
+        }
+
+        img.zoomable {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1.75rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #000000;
+            cursor: zoom-in;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        img.zoomable:hover {
+            border-color: var(--accent-color);
+            transform: scale(1.005);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: var(--text-muted);
+            font-size: 2rem;
+            font-weight: 300;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.15s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #ffffff;
+        }
+
+        pre {
+            background-color: var(--code-bg) !important;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        pre code {
+            padding: 1.5rem !important;
+            font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace !important;
+            font-size: 0.875rem !important;
+            line-height: 1.65 !important;
+            background: transparent !important;
+        }
+
+        code:not(pre code) {
+            font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+            background-color: #1c1c1e;
+            padding: 0.2rem 0.4rem;
+            border-radius: 5px;
+            font-size: 0.875rem;
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2.5rem 0;
+            font-size: 0.9rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: #111112;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        td {
+            color: #e8e8ed;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: #0a0a0a;
+        }
+
+        .warning-callout {
+            background-color: var(--warning-bg);
+            border: 1px solid #48484a;
+            border-left: 4px solid var(--warning-border);
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+
+        .warning-callout p {
+            margin: 0;
+            color: #ffffff;
+        }
+        
+        .warning-callout strong {
+            color: var(--warning-text);
+            font-weight: 600;
+        }
+
+        ol, ul.doc-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #e8e8ed;
+        }
+        
+        ol li, ul.doc-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.25rem;
+        }
+
+        main a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        main a:hover {
+            color: var(--accent-hover);
+        }
+
+        @media (max-width: 960px) {
+            body {
+                flex-direction: column;
+            }
+            aside {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding: 3rem 2rem 1rem 2rem;
+            }
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 2rem;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <nav aria-label="Documentation Navigation">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#blueprints">Blueprints</a></li>
+                <li><a href="#cpp">C++</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header class="doc-header">
+            <h1>Unreal Engine 5 WebSocket Dedicated Server Architecture</h1>
+            <div class="subtitle">BlueprintWebSocket Implementation Guide &bull; Download via <a href="https://www.fab.com/listings/6bd0491a-7a5d-45db-953f-e8b6ee3c22b9" target="_blank">Fab Marketplace</a></div>
+        </header>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p><strong>BlueprintWebSocket</strong> is an advanced asynchronous networking plugin for Unreal Engine. It enables real-time duplex data transfers with external servers using the WebSocket network architecture, specifically optimized for broadcasting server health diagnostic metrics, syncing persistent cluster configurations, and pushing player progression saves down to remote databases.</p>
+            <p>Download the plugin from the <a href="https://www.fab.com/listings/6bd0491a-7a5d-45db-953f-e8b6ee3c22b9" target="_blank">Fab Marketplace</a> to initialize real-time networking elements in your current workspace.</p>
+            <ul class="doc-list">
+                <li><strong>Blueprints and C++:</strong> Native support inside visual script node trees as well as raw C++ source modules.</li>
+                <li><strong>Asynchronous Threading:</strong> Non-blocking background workers preserve main render thread frame pacing.</li>
+                <li><strong>Garbage Collection Lifecycle:</strong> Leverages Unreal Engine's standard reference routing to manage object allocation safety automatically.</li>
+                <li><strong>Data Payloads:</strong> Flexible interfaces handle text-based UTF-8 serialization or custom uint8 payload byte arrays.</li>
+            </ul>
+        </section>
+
+        <section id="blueprints">
+            <h2>Blueprints</h2>
+            
+            <h3>Connecting to a WebSocket server</h3>
+            <p>Using the latency-helper node, you can connect to an active network socket and run automated execution chains immediately:</p>
+            <img class="zoomable" src="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServer.png?raw=true" alt="Blueprint script layout mapping WebSocket connection using helper node">
+
+            <p>For custom logic structures, create an explicit socket instance to hook up callback events directly into event graph dispatchers:</p>
+            <img class="zoomable" src="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/ConnectToServerWithoutHelper.png?raw=true" alt="Advanced Unreal Engine Blueprint connecting with manual delegate assignments">
+            
+            <h3>Sending Data</h3>
+            <img class="zoomable" src="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/SendMessage.png?raw=true" alt="Blueprint node configuration routing structural string messages to WebSocket buffer">
+            
+            <h3>Automatically Reconnect on Error</h3>
+            <p>Handle dropouts automatically by defining retry parameters within your baseline node sequence:</p>
+            <img class="zoomable" src="https://github.com/Pandoa/BlueprintWebSocket/blob/master/Images/AutoReconnect.png?raw=true" alt="Blueprint networking node group managing connection state recovery loops">
+        </section>
+
+        <section id="cpp">
+            <h2>C++</h2>
+
+            <h3>Adding the Module</h3>
+            <p>Open your source build configuration file (<code>&lt;ProjectName&gt;.Build.cs</code>) and add the module dependency into your compile instruction lists:</p>
+<pre><code class="language-csharp">PublicDependencyModuleNames.Add("BlueprintWebSocket");</code></pre>
+
+            <h3>Include</h3>
+            <p>Expose the interface types by placing the wrapper header in your class file:</p>
+<pre><code class="language-cpp">#include "BlueprintWebSocketWrapper.h"</code></pre>
+
+            <h3>Creating a new WebSocket</h3>
+            <p>Instantiate a heap allocation using the plugin factory method:</p>
+<pre><code class="language-cpp">UBlueprintWebSocket* const WebSocket = UBlueprintWebSocket::CreateWebSocket();</code></pre>
+
+            <h3>Configuring the WebSocket</h3>
+            <p>Modify transport metadata structures and authentication headers prior to invoking the connection handshake routine:</p>
+<pre><code class="language-cpp">// Merges the provided map with the current header list.
+WebSocket->SetHeaders(const TMap&lt;FString, FString&gt; & InHeaders);
+
+// Adds a pair Key / Value to the list of headers.
+WebSocket->AddHeader(const FString & Header, const FString & Value);
+
+// Removes the header from the header list
+WebSocket->RemoveHeader(const FString & HeaderToRemove);</code></pre>
+
+            <h3>Listening to events with Callbacks</h3>
+            <p>Bind functional targets to the asynchronous delegates to receive network responses state modifications safely:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Signature</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>OnConnectedEvent</code></td>
+                        <td><code>void Func()</code></td>
+                        <td>Called when we are successfully connected to the WebSocket Server.</td>
+                    </tr>
+                    <tr>
+                        <td><code>OnConnectionErrorEvent</code></td>
+                        <td><code>void Func(const FString &amp; Error)</code></td>
+                        <td>Called when we failed to connect to the WebSocket server.</td>
+                    </tr>
+                    <tr>
+                        <td><code>OnCloseEvent</code></td>
+                        <td><code>void Func(int64 StatusCode, const FString &amp; Reason, bool bWasClean)</code></td>
+                        <td>Called when the connection with the server has been closed.</td>
+                    </tr>
+                    <tr>
+                        <td><code>OnMessageEvent</code></td>
+                        <td><code>void Func(const FString &amp; Message)</code></td>
+                        <td>Called when we received a string message.</td>
+                    </tr>
+                    <tr>
+                        <td><code>OnRawMessageEvent</code></td>
+                        <td><code>void Func(const TArray&lt;uint8&gt; &amp; Data, int32 BytesRemaining)</code></td>
+                        <td>Called when we received a binary message.</td>
+                    </tr>
+                    <tr>
+                        <td><code>OnMessageSentEvent</code></td>
+                        <td><code>void Func(const FString &amp; Message)</code></td>
+                        <td>Called just after we sent a message.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Because these hooks utilize <code>Dynamic Multicast Delegates</code>, any bound listener function must carry the <code>UFUNCTION()</code> decoration macro to remain visible within the engine invocation stack:</p>
+<pre><code class="language-cpp">UCLASS()
+class MYGAME_API UMyClass : public UObject
+{
+    GENERATED_BODY()
+public:
+    // The function we use to bind the events
+    void BindEvents();
+private:
+    // Callbacks
+    UFUNCTION() void OnConnected();
+    UFUNCTION() void OnConnectionError(const FString & Error);
+    UFUNCTION() void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
+    UFUNCTION() void OnMessage(const FString & Message);
+    UFUNCTION() void OnRawMessage(const TArray&lt;uint8&gt; & Data, int32 BytesRemaining);
+    UFUNCTION() void OnMessageSent(const FString & Message);
+private:
+    UPROPERTY()
+    UBlueprintWebSocket* WebSocket;
+};
+
+void UMyClass::BindEvents()
+{
+    // Bind the events so our functions are called when the event is triggered.
+    WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
+    WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
+    WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
+    WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
+}</code></pre>
+
+            <div class="warning-callout">
+                <p><strong>Notice:</strong> It is recommended to bind all events you will use before connecting.</p>
+            </div>
+
+            <h3>Connecting to the WebSocket Server</h3>
+            <p>Pass the explicit endpoint URI and communication protocol sub-strings directly into the connection processing loop:</p>
+<pre><code class="language-cpp">WebSocket->Connect(TEXT("ws://internal-cluster.local:8500/server-nodes"), TEXT("ws"));</code></pre>
+            
+            <p>Query state frames inline via the functional status checkers:</p>
+<pre><code class="language-cpp">if (WebSocket->IsConnected())
+{
+    // We are connected.
+}
+else
+{
+    // We are not connected.
+}</code></pre>
+
+            <div class="warning-callout">
+                <p><strong>Notice:</strong> You shouldn't rely on <code>IsConnected()</code> to handle connection but on the <code>OnConnectedEvent</code> callback.</p>
+            </div>
+
+            <h3>Sending Messages</h3>
+            <p>Transmit information downstream using structured strings or direct memory buffers:</p>
+            <ol>
+                <li><code>void SendMessage(const FString &amp; Message)</code>: For passing textual/JSON data formats.</li>
+                <li><code>void SendRawMessage(const TArray&lt;uint8&gt; &amp; Message, const bool bIsBinary)</code>: For pushing compressed structures or asset files.</li>
+            </ol>
+            <p>Implementation sample:</p>
+<pre><code class="language-cpp">// The data we want to send, you can get it programmatically.
+const FString       StringMessage = TEXT("Hello Server");
+const TArray&lt;uint8&gt; BinaryMessage = { 0, 1, 2, 3, 4, 5 };
+
+// Send it through our WebSocket.
+WebSocket->SendMessage   (StringMessage);
+WebSocket->SendRawMessage(BinaryMessage);</code></pre>
+
+            <h3>Full Example</h3>
+            <h4>MyClass.h</h4>
+<pre><code class="language-cpp">#pragma once
+
+#include "CoreMinimal.h"
+#include "MyClass.generated.h"
+
+class UBlueprintWebSocket;
+
+/**
+ * Our custom class that uses a WebSocket.
+ **/
+UCLASS()
+class MYGAME_API UMyClass : public UObject
+{
+    GENERATED_BODY()
+public:
+    void InitializeAndConnectSocket();
+private:
+    UFUNCTION() 
+    void OnConnected();
+    UFUNCTION() 
+    void OnConnectionError(const FString & Error);
+    UFUNCTION() 
+    void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
+    UFUNCTION() 
+    void OnMessage(const FString & Message);
+    UFUNCTION()
+    void OnRawMessage(const TArray&lt;uint8&gt; & Data, int32 BytesRemaining);
+    UFUNCTION()
+    void OnMessageSent(const FString & Message);
+private:
+    UPROPERTY()
+    UBlueprintWebSocket* WebSocket;
+};</code></pre>
+
+            <h4>MyClass.cpp</h4>
+<pre><code class="language-cpp">#include "MyClass.h"
+#include "BlueprintWebSocketWrapper.h"
+
+void UMyClass::InitializeAndConnectSocket()
+{
+    WebSocket = UBlueprintWebSocket::CreateWebSocket();
+    
+    WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
+    WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
+    WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
+    WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
+
+    WebSocket->AddHeader(TEXT("SomeHeader"), TEXT("SomeValue"));
+    WebSocket->Connect(TEXT("ws://internal-cluster.local:8500/server-nodes"), TEXT("ws"));
+}
+
+void UMyClass::OnConnected()
+{
+    UE_LOG(LogTemp, Log, TEXT("We are connected!"));
+    WebSocket->SendMessage(TEXT("Hello Server!"));
+}
+
+void UMyClass::OnConnectionError(const FString & Error)
+{
+    UE_LOG(LogTemp, Error, TEXT("Failed to connect: %s."), *Error);
+}
+
+void UMyClass::OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Connection closed: %d:%s. Clean: %d"), StatusCode, *Reason, bWasClean);
+}
+
+void UMyClass::OnMessage(const FString & Message)
+{
+    UE_LOG(LogTemp, Log, TEXT("New message: %s"), *Message);
+}
+
+void UMyClass::OnRawMessage(const TArray&lt;uint8&gt; & Data, int32 BytesRemaining)
+{
+    UE_LOG(LogTemp, Log, TEXT("New binary message: %d bytes and %d bytes remaining."), Data.Num(), BytesRemaining);
+}
+
+void UMyClass::OnMessageSent(const FString & Message)
+{
+    UE_LOG(LogTemp, Log, TEXT("We just sent %s to the server."), *Message);
+}</code></pre>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>Troubleshooting</h2>
+            <h3>Failed to connect: <code>SSL error: unable to get local issuer certificate</code></h3>
+            <p>This network security issue arises because public validation root authorities are omitted from the platform bundle inside fully cooked game distributions. Resolve the distribution package integrity via these steps:</p>
+            <ol>
+                <li>Stage your active authorization certificate authority file (<code>.pem</code> format) to your project source path: <code>&lt;Project&gt;/Content/Certificates/cacert.pem</code>.</li>
+                <li>Expose the target subdirectory to the platform packager via <strong>Project Settings</strong> &gt; <strong>Packaging</strong> &gt; <strong>Additional Non-Assets Directories To Copy</strong> list arrays.</li>
+            </ol>
+        </section>
+
+        <section id="support">
+            <h2>Support</h2>
+            <p>For feature recommendations or functional support updates, open a developer request ticket directly with our core engineering desk at: <a href="mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20">pandores.marketplace@gmail.com</a>.</p>
+        </section>
+    </main>
+
+    <div id="imageViewer" class="lightbox" role="dialog" aria-label="Image Viewer Overlay">
+        <span class="lightbox-close" id="closeViewer">&times;</span>
+        <img class="lightbox-content" id="viewerImg" src="" alt="">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = document.getElementById('imageViewer');
+            const lightboxImg = document.getElementById('viewerImg');
+            const closeBtn = document.getElementById('closeViewer');
+            const zoomableImages = document.querySelectorAll('img.zoomable');
+
+            zoomableImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => { lightboxImg.src = ''; }, 250);
+            };
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target !== lightboxImg) {
+                    closeLightbox();
+                }
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
