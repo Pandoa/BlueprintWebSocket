@@ -255,3 +255,6 @@ This error happens because the SSL certificate is not included in the packaged v
 ## Support
 If you need help, have a feature request or experience troubles, please contact us at [pandores.marketplace@gmail.com](mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20).
 
+## New Documentation
+You can access [the new WebSocket Client official documentation for Unreal Engine here](https://pandoa.github.io/BlueprintWebSocket).
+
