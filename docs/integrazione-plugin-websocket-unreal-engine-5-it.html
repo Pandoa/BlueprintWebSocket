@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-  <html lang=lang>
+  <html lang=it>
     <meta charset=UTF-8>
     <meta content="width=device-width,initial-scale=1" name=viewport>
-    <title>Unreal Engine to Python WebSocket Connection Guide</title>
-    <meta content=Connect your Unreal Engine runtime simulations directly to high-performance Python backends, FastAPI sockets, or machine learning model clusters. name=description>
-    <meta content="Unreal engine python API, FastAPI websocket UE5, machine learning game socket, python network wrapper, BlueprintWebSocket, Unreal Engine, WebSockets, Blueprints, C++" name=keywords>
+    <title>Documentazione BlueprintWebSocket — Plugin WebSocket per Unreal Engine 5</title>
+    <meta content=Guida all'integrazione ufficiale per BlueprintWebSocket. Impara a connetterti, inviare testo o array di dati binari e gestire gli errori usando Blueprints o C++ in Unreal Engine 5. name=description>
+    <meta content="Unreal Engine 5, WebSocket UE5, networking UE5, plugin BlueprintWebSocket, BlueprintWebSocket, Unreal Engine, WebSockets, Blueprints, C++" name=keywords>
     <meta content="index, follow" name=robots>
     <link href=https://pandoa.github.io/BlueprintWebSocket/sitemap.xml rel=sitemap type=application/xml title=Sitemap>
     <meta content=website property=og:type>
-    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/unreal-engine-python-websocket-backend-integration property=og:url>
-    <meta content=Unreal Engine to Python WebSocket Connection Guide property=og:title>
-    <meta content=Connect your Unreal Engine runtime simulations directly to high-performance Python backends, FastAPI sockets, or machine learning model clusters. property=og:description>
+    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/integrazione-plugin-websocket-unreal-engine-5-it property=og:url>
+    <meta content=Documentazione BlueprintWebSocket — Plugin WebSocket per Unreal Engine 5 property=og:title>
+    <meta content=Guida all'integrazione ufficiale per BlueprintWebSocket. Impara a connetterti, inviare testo o array di dati binari e gestire gli errori usando Blueprints o C++ in Unreal Engine 5. property=og:description>
     <meta content=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png property=og:image>
     <meta content=summary_large_image property=twitter:card>
-    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/unreal-engine-python-websocket-backend-integration property=twitter:url>
-    <meta content=Unreal Engine to Python WebSocket Connection Guide property=twitter:title>
-    <meta content=Connect your Unreal Engine runtime simulations directly to high-performance Python backends, FastAPI sockets, or machine learning model clusters. property=twitter:description>
+    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/integrazione-plugin-websocket-unreal-engine-5-it property=twitter:url>
+    <meta content=Documentazione BlueprintWebSocket — Plugin WebSocket per Unreal Engine 5 property=twitter:title>
+    <meta content=Guida all'integrazione ufficiale per BlueprintWebSocket. Impara a connetterti, inviare testo o array di dati binari e gestire gli errori usando Blueprints o C++ in Unreal Engine 5. property=twitter:description>
     <meta content=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png property=twitter:image>
     <link href=favicon.svg rel=icon type=image/svg+xml>
     <link href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css rel=stylesheet>
@@ -364,106 +364,106 @@
       }
     </style>
     <aside>
-      <nav aria-label="Documentation Navigation">
+      <nav aria-label="Navigazione della documentazione">
         <ul>
-          <li><a href=#overview>Overview</a>
+          <li><a href=#overview>Panoramica</a>
           <li><a href=#blueprints>Blueprints</a>
           <li><a href=#cpp>C++</a>
-          <li><a href=#troubleshooting>Troubleshooting</a>
-          <li><a href=#support>Support</a>
+          <li><a href=#troubleshooting>Risoluzione dei problemi</a>
+          <li><a href=#support>Supporto</a>
         </ul>
       </nav>
     </aside>
     <main>
       <header class=doc-header>
-        <h1>Unreal Engine Python WebSocket Backend Integration</h1>
-        <div class=subtitle>BlueprintWebSocket Implementation Guide • Download via <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>Fab Marketplace</a></div>
+        <h1>Integrazione del plugin WebSocket per Unreal Engine 5</h1>
+        <div class=subtitle>Guida all'implementazione di BlueprintWebSocket • Scarica tramite <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>Fab Marketplace</a></div>
       </header>
       <section id=overview>
-        <h2>Overview</h2>
-        <p><strong>BlueprintWebSocket</strong> is an advanced asynchronous networking plugin for Unreal Engine. It enables real-time duplex data transfers with external servers using the WebSocket network architecture, specifically optimized for pumping real-time player telemetry data patterns directly into data-science structures, Python loops, and predictive simulation nodes.
-        <p>Download the plugin from the <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>Fab Marketplace</a> to initialize real-time networking elements in your current workspace.
+        <h2>Panoramica</h2>
+        <p><strong>BlueprintWebSocket</strong> è un plugin di rete asincrono avanzato per Unreal Engine. Consente trasferimenti di dati duplex in tempo reale con server esterni utilizzando l'architettura di rete WebSocket, specificamente ottimizzato per la creazione di lobby multiplayer in tempo reale, sistemi di chat ad alta frequenza e cicli di telemetria in diretta all'interno di ambienti Unreal Engine 5.
+        <p>Scarica il plugin dal <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>Fab Marketplace</a> per inizializzare elementi di rete in tempo reale nel tuo spazio di lavoro attuale.
         <ul class=doc-list>
-          <li><strong>Blueprints and C++:</strong> Native support inside visual script node trees as well as raw C++ source modules.
-          <li><strong>Asynchronous Threading:</strong> Non-blocking background workers preserve main render thread frame pacing.
-          <li><strong>Garbage Collection Lifecycle:</strong> Leverages Unreal Engine's standard reference routing to manage object allocation safety automatically.
-          <li><strong>Data Payloads:</strong> Flexible interfaces handle text-based UTF-8 serialization or custom uint8 payload byte arrays.
+          <li><strong>Blueprints e C++:</strong> Supporto nativo all'interno di alberi di nodi di script visivi e moduli sorgente C++ grezzi.
+          <li><strong>Threading asincrono:</strong> I worker in background non bloccanti preservano il frame pacing del thread di rendering principale.
+          <li><strong>Ciclo di vita della garbage collection:</strong> Sfrutta il routing di riferimento standard di Unreal Engine per gestire automaticamente la sicurezza dell'allocazione degli oggetti.
+          <li><strong>Payload dei dati:</strong> Interfacce flessibili gestiscono la serializzazione UTF-8 basata su testo o array di byte uint8 personalizzati.
         </ul>
       </section>
       <section id=blueprints>
         <h2>Blueprints</h2>
-        <h3>Connecting to a WebSocket server</h3>
-        <p>Using the latency-helper node, you can connect to an active network socket and run automated execution chains immediately:</p><img alt="Blueprint script layout mapping WebSocket connection using helper node" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png>
-        <p>For custom logic structures, create an explicit socket instance to hook up callback events directly into event graph dispatchers:</p><img alt="Advanced Unreal Engine Blueprint connecting with manual delegate assignments" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServerWithoutHelper.png>
-        <h3>Sending Data</h3><img alt="Blueprint node configuration routing structural string messages to WebSocket buffer" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/SendMessage.png>
-        <h3>Automatically Reconnect on Error</h3>
-        <p>Handle dropouts automatically by defining retry parameters within your baseline node sequence:</p><img alt="Blueprint networking node group managing connection state recovery loops" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/AutoReconnect.png>
+        <h3>Connessione a un server WebSocket</h3>
+        <p>Usando il nodo helper di latenza, puoi connetterti a un socket di rete attivo ed eseguire immediatamente catene di esecuzione automatizzate:</p><img alt="Layout di script Blueprint che mappa la connessione WebSocket usando il nodo helper" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png>
+        <p>Per strutture logiche personalizzate, crea un'istanza socket esplicita per collegare gli eventi di callback direttamente nei dispatcher del grafo eventi:</p><img alt="Blueprint Unreal Engine avanzato che si connette con assegnazioni di delegate manuali" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServerWithoutHelper.png>
+        <h3>Invio di dati</h3><img alt="Configurazione del nodo Blueprint che instrada messaggi di stringa strutturale al buffer WebSocket" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/SendMessage.png>
+        <h3>Riconnessione automatica in caso di errore</h3>
+        <p>Gestisci automaticamente le disconnessioni definendo parametri di retry all'interno della tua sequenza di nodi di base:</p><img alt="Gruppo di nodi di rete Blueprint che gestisce i cicli di ripristino dello stato di connessione" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/AutoReconnect.png>
       </section>
       <section id=cpp>
         <h2>C++</h2>
-        <h3>Adding the Module</h3>
-        <p>Open your source build configuration file (<code>&lt;ProjectName>.Build.cs</code>) and add the module dependency into your compile instruction lists:
+        <h3>Aggiunta del modulo</h3>
+        <p>Apri il tuo file di configurazione della build sorgente (<code>&lt;ProjectName>.Build.cs</code>) e aggiungi la dipendenza del modulo nei tuoi elenchi di istruzioni di compilazione:
         <pre><code class=language-csharp>PublicDependencyModuleNames.Add("BlueprintWebSocket");</code></pre>
-        <h3>Include</h3>
-        <p>Expose the interface types by placing the wrapper header in your class file:
+        <h3>Includi</h3>
+        <p>Esponi i tipi di interfaccia posizionando l'header wrapper nel tuo file di classe:
         <pre><code class=language-cpp>#include "BlueprintWebSocketWrapper.h"</code></pre>
-        <h3>Creating a new WebSocket</h3>
-        <p>Instantiate a heap allocation using the plugin factory method:
+        <h3>Creazione di un nuovo WebSocket</h3>
+        <p>Istanzia un'allocazione heap usando il metodo factory del plugin:
         <pre><code class=language-cpp>UBlueprintWebSocket* const WebSocket = UBlueprintWebSocket::CreateWebSocket();</code></pre>
-        <h3>Configuring the WebSocket</h3>
-        <p>Modify transport metadata structures and authentication headers prior to invoking the connection handshake routine:
-        <pre><code class=language-cpp>// Merges the provided map with the current header list.
+        <h3>Configurazione del WebSocket</h3>
+        <p>Modifica le strutture dei metadati di trasporto e gli header di autenticazione prima di invocare la routine di handshake di connessione:
+        <pre><code class=language-cpp>// Unisce la map fornita con l'elenco di header corrente.
 WebSocket->SetHeaders(const TMap&lt;FString, FString> & InHeaders);
 
-// Adds a pair Key / Value to the list of headers.
+// Aggiunge una coppia Chiave / Valore all'elenco di header.
 WebSocket->AddHeader(const FString & Header, const FString & Value);
 
-// Removes the header from the header list
+// Rimuove l'header dall'elenco di header
 WebSocket->RemoveHeader(const FString & HeaderToRemove);</code></pre>
-        <h3>Listening to events with Callbacks</h3>
-        <p>Bind functional targets to the asynchronous delegates to receive network responses state modifications safely:
+        <h3>Ascolto degli eventi con Callback</h3>
+        <p>Associa target funzionali ai delegate asincroni per ricevere in modo sicuro le modifiche di stato delle risposte di rete:
         <table>
           <thead>
             <tr>
-              <th>Event Name
-              <th>Signature
-              <th>Description
+              <th>Nome evento
+              <th>Firma
+              <th>Descrizione
           <tbody>
             <tr>
               <td><code>OnConnectedEvent</code>
               <td><code>void Func()</code>
-              <td>Called when we are successfully connected to the WebSocket Server.
+              <td>Chiamato quando siamo connessi con successo al server WebSocket.
             <tr>
               <td><code>OnConnectionErrorEvent</code>
               <td><code>void Func(const FString & Error)</code>
-              <td>Called when we failed to connect to the WebSocket server.
+              <td>Chiamato quando non siamo riusciti a connetterci al server WebSocket.
             <tr>
               <td><code>OnCloseEvent</code>
               <td><code>void Func(int64 StatusCode, const FString & Reason, bool bWasClean)</code>
-              <td>Called when the connection with the server has been closed.
+              <td>Chiamato quando la connessione con il server è stata chiusa.
             <tr>
               <td><code>OnMessageEvent</code>
               <td><code>void Func(const FString & Message)</code>
-              <td>Called when we received a string message.
+              <td>Chiamato quando abbiamo ricevuto un messaggio di stringa.
             <tr>
               <td><code>OnRawMessageEvent</code>
               <td><code>void Func(const TArray&lt;uint8> & Data, int32 BytesRemaining)</code>
-              <td>Called when we received a binary message.
+              <td>Chiamato quando abbiamo ricevuto un messaggio binario.
             <tr>
               <td><code>OnMessageSentEvent</code>
               <td><code>void Func(const FString & Message)</code>
-              <td>Called just after we sent a message.
+              <td>Chiamato subito dopo aver inviato un messaggio.
         </table>
-        <p>Because these hooks utilize <code>Dynamic Multicast Delegates</code>, any bound listener function must carry the <code>UFUNCTION()</code> decoration macro to remain visible within the engine invocation stack:
+        <p>Poiché questi hook utilizzano <code>Dynamic Multicast Delegates</code>, qualsiasi funzione listener associata deve portare la macro di decorazione <code>UFUNCTION()</code> per rimanere visibile all'interno dello stack di invocazione del motore:
         <pre><code class=language-cpp>UCLASS()
 class MYGAME_API UMyClass : public UObject
 {
     GENERATED_BODY()
 public:
-    // The function we use to bind the events
+    // La funzione che usiamo per associare gli eventi
     void BindEvents();
 private:
-    // Callbacks
+    // Callback
     UFUNCTION() void OnConnected();
     UFUNCTION() void OnConnectionError(const FString & Error);
     UFUNCTION() void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
@@ -477,7 +477,7 @@ private:
 
 void UMyClass::BindEvents()
 {
-    // Bind the events so our functions are called when the event is triggered.
+    // Associa gli eventi in modo che le nostre funzioni vengano chiamate quando l'evento viene attivato.
     WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
     WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
     WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
@@ -486,38 +486,38 @@ void UMyClass::BindEvents()
     WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
 }</code></pre>
         <div class=warning-callout>
-          <p><strong>Notice:</strong> It is recommended to bind all events you will use before connecting.
+          <p><strong>Nota:</strong> Si consiglia di associare tutti gli eventi che utilizzerai prima di connetterti.
         </div>
-        <h3>Connecting to the WebSocket Server</h3>
-        <p>Pass the explicit endpoint URI and communication protocol sub-strings directly into the connection processing loop:
-        <pre><code class=language-cpp>WebSocket->Connect(TEXT("ws://localhost:8000/fastapi-ws"), TEXT("ws"));</code></pre>
-        <p>Query state frames inline via the functional status checkers:
+        <h3>Connessione al server WebSocket</h3>
+        <p>Passa l'URI endpoint esplicito e le sotto-stringhe del protocollo di comunicazione direttamente nel ciclo di elaborazione della connessione:
+        <pre><code class=language-cpp>WebSocket->Connect(TEXT("ws://127.0.0.1:8080/"), TEXT("ws"));</code></pre>
+        <p>Interroga i frame di stato inline tramite i controllori di stato funzionali:
         <pre><code class=language-cpp>if (WebSocket->IsConnected())
 {
-    // We are connected.
+    // Siamo connessi.
 }
 else
 {
-    // We are not connected.
+    // Non siamo connessi.
 }</code></pre>
         <div class=warning-callout>
-          <p><strong>Notice:</strong> You shouldn't rely on <code>IsConnected()</code> to handle connection but on the <code>OnConnectedEvent</code> callback.
+          <p><strong>Nota:</strong> Non dovresti fare affidamento su <code>IsConnected()</code> per gestire la connessione ma sul callback <code>OnConnectedEvent</code> .
         </div>
-        <h3>Sending Messages</h3>
-        <p>Transmit information downstream using structured strings or direct memory buffers:
+        <h3>Invio di messaggi</h3>
+        <p>Trasmetti informazioni a valle usando stringhe strutturate o buffer di memoria diretti:
         <ol>
-          <li><code>void SendMessage(const FString & Message)</code>: For passing textual/JSON data formats.
-          <li><code>void SendRawMessage(const TArray&lt;uint8> & Message, const bool bIsBinary)</code>: For pushing compressed structures or asset files.
+          <li><code>void SendMessage(const FString & Message)</code>: per passare formati di dati testuali/JSON.
+          <li><code>void SendRawMessage(const TArray&lt;uint8> & Message, const bool bIsBinary)</code>: per inviare strutture compresse o file di risorse.
         </ol>
-        <p>Implementation sample:
-        <pre><code class=language-cpp>// The data we want to send, you can get it programmatically.
+        <p>Esempio di implementazione:
+        <pre><code class=language-cpp>// I dati che vogliamo inviare, puoi ottenerli programmaticamente.
 const FString       StringMessage = TEXT("Hello Server");
 const TArray&lt;uint8> BinaryMessage = { 0, 1, 2, 3, 4, 5 };
 
-// Send it through our WebSocket.
+// Inviali attraverso il nostro WebSocket.
 WebSocket->SendMessage   (StringMessage);
 WebSocket->SendRawMessage(BinaryMessage);</code></pre>
-        <h3>Full Example</h3>
+        <h3>Esempio completo</h3>
         <h4>MyClass.h</h4>
         <pre><code class=language-cpp>#pragma once
 
@@ -527,7 +527,7 @@ WebSocket->SendRawMessage(BinaryMessage);</code></pre>
 class UBlueprintWebSocket;
 
 /**
- * Our custom class that uses a WebSocket.
+ * La nostra classe personalizzata che utilizza un WebSocket.
  **/
 UCLASS()
 class MYGAME_API UMyClass : public UObject
@@ -568,7 +568,7 @@ void UMyClass::InitializeAndConnectSocket()
     WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
 
     WebSocket->AddHeader(TEXT("SomeHeader"), TEXT("SomeValue"));
-    WebSocket->Connect(TEXT("ws://localhost:8000/fastapi-ws"), TEXT("ws"));
+    WebSocket->Connect(TEXT("ws://127.0.0.1:8080/"), TEXT("ws"));
 }
 
 void UMyClass::OnConnected()
@@ -603,20 +603,20 @@ void UMyClass::OnMessageSent(const FString & Message)
 }</code></pre>
       </section>
       <section id=troubleshooting>
-        <h2>Troubleshooting</h2>
-        <h3>Failed to connect: <code>SSL error: unable to get local issuer certificate</code></h3>
-        <p>This network security issue arises because public validation root authorities are omitted from the platform bundle inside fully cooked game distributions. Resolve the distribution package integrity via these steps:
+        <h2>Risoluzione dei problemi</h2>
+        <h3>Connessione fallita: <code>Errore SSL: impossibile ottenere il certificato dell'emittente locale</code></h3>
+        <p>Questo problema di sicurezza di rete si verifica perché le autorità di root di validazione pubbliche sono omesse dal bundle della piattaforma nelle distribuzioni di gioco completamente cotte. Risolvi l'integrità del pacchetto di distribuzione tramite questi passaggi:
         <ol>
-          <li>Stage your active authorization certificate authority file (<code>.pem</code> format) to your project source path: <code>&lt;Project>/Content/Certificates/cacert.pem</code>.
-          <li>Expose the target subdirectory to the platform packager via <strong>Project Settings</strong> ><strong>Packaging</strong> ><strong>Additional Non-Assets Directories To Copy</strong> list arrays.
+          <li>Posiziona il tuo file di autorità di certificazione di autorizzazione attivo (formato<code>.pem</code>) nel percorso sorgente del tuo progetto: <code>&lt;Project>/Content/Certificates/cacert.pem</code>.
+          <li>Esponi la sottodirectory di destinazione al packager della piattaforma tramite <strong>Impostazioni progetto</strong> ><strong>Packaging</strong> ><strong>Directory non-asset aggiuntive da copiare</strong> elenchi di array.
         </ol>
       </section>
       <section id=support>
-        <h2>Support</h2>
-        <p>For feature recommendations or functional support updates, open a developer request ticket directly with our core engineering desk at: <a href="mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20">pandores.marketplace@gmail.com</a>.
+        <h2>Supporto</h2>
+        <p>Per raccomandazioni sulle funzionalità o aggiornamenti di supporto funzionale, apri un ticket di richiesta sviluppatore direttamente con il nostro ufficio di ingegneria principale a: <a href="mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20">pandores.marketplace@gmail.com</a>.
       </section>
     </main>
-    <div class=lightbox aria-label="Image Viewer Overlay" id=imageViewer role=dialog><span class=lightbox-close id=closeViewer>×</span><img alt="" class=lightbox-content src="" id=viewerImg></div>
+    <div class=lightbox aria-label="Sovrapposizione visualizzatore immagini" id=imageViewer role=dialog><span class=lightbox-close id=closeViewer>×</span><img alt="" class=lightbox-content src="" id=viewerImg></div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const t = document.getElementById("imageViewer"),
