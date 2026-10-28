@@ -641,6 +641,94 @@ void UMyClass::OnMessageSent(const FString & Message)
       })
     </script>
     <script>
+      (function () {
+        function track(name, params) {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", name, Object.assign({
+              lang: document.documentElement.lang || "unknown"
+            }, params || {}))
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          // Sidebar / in-page navigation clicks
+          document.querySelectorAll("aside a[href^='#']").forEach(function (a) {
+            a.addEventListener("click", function () {
+              track("nav_click", {
+                section: (a.getAttribute("href") || "").slice(1),
+                link_text: (a.textContent || "").trim()
+              })
+            })
+          });
+
+          // Outbound links (Fab, GitHub, etc.) and email links in main content
+          document.querySelectorAll("main a[href]").forEach(function (a) {
+            a.addEventListener("click", function () {
+              var href = a.getAttribute("href") || "";
+              var linkText = (a.textContent || "").trim().slice(0, 80);
+              if (href.indexOf("mailto:") === 0) {
+                track("email_click", { link_text: linkText });
+                return
+              }
+              if (/^https?:\/\//i.test(href)) {
+                var domain = "";
+                try { domain = new URL(href, location.href).hostname } catch (err) {}
+                track("outbound_click", {
+                  link_url: href,
+                  link_domain: domain,
+                  link_text: linkText
+                });
+                if (domain === "fab.com" || domain === "www.fab.com") {
+                  track("fab_marketplace_click", { link_url: href })
+                }
+                if (domain === "github.com") {
+                  track("github_link_click", { link_url: href })
+                }
+              }
+            })
+          });
+
+          // Lightbox / image zoom opens
+          document.querySelectorAll("img.zoomable").forEach(function (img) {
+            img.addEventListener("click", function () {
+              track("image_zoom", {
+                image_src: img.currentSrc || img.src,
+                image_alt: img.alt || ""
+              })
+            })
+          });
+
+          // Code block interaction (copy / read intent)
+          document.querySelectorAll("pre code").forEach(function (block) {
+            block.addEventListener("click", function () {
+              var langClass = Array.prototype.slice.call(block.classList)
+                .filter(function (c) { return c.indexOf("language-") === 0 })[0];
+              track("code_block_click", {
+                code_language: langClass ? langClass.replace("language-", "") : "unknown"
+              })
+            })
+          });
+
+          // Section views (scroll engagement)
+          if ("IntersectionObserver" in window) {
+            var seen = {};
+            var observer = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                var id = entry.target.id;
+                if (entry.isIntersecting && id && !seen[id]) {
+                  seen[id] = true;
+                  track("section_view", { section: id })
+                }
+              })
+            }, { threshold: 0.5 });
+            document.querySelectorAll("main section[id]").forEach(function (section) {
+              observer.observe(section)
+            })
+          }
+        })
+      })()
+    </script>
+    <script>
       ! function() {
         if (!0 !== window.puppeteer && !navigator.webdriver && "localhost" !== location.hostname && "127.0.0.1" !== location.hostname) {
           window.dataLayer = window.dataLayer || [], (window.gtag = a)("js", new Date);

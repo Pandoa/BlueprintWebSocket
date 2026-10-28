@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+  <html lang={{lang}}>
+    <meta charset=UTF-8>
+    <meta content="width=device-width,initial-scale=1" name=viewport>
+    <title>{{seo_meta_title}}</title>
+    <meta content={{seo_meta_desc}} name=description>
+    <meta content="{{seo_keywords}}, BlueprintWebSocket, Unreal Engine, WebSockets, Blueprints, C++" name=keywords>
+    <meta content="index, follow" name=robots>
+    <link href=https://pandoa.github.io/BlueprintWebSocket/sitemap.xml rel=sitemap type=application/xml title=Sitemap>
+    <meta content=website property=og:type>
+    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/{{plugin_slug}} property=og:url>
+    <meta content={{seo_meta_title}} property=og:title>
+    <meta content={{seo_meta_desc}} property=og:description>
+    <meta content=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png property=og:image>
+    <meta content=summary_large_image property=twitter:card>
+    <meta content=https://github.com/Pandoa/BlueprintWebSocket/docs/{{plugin_slug}} property=twitter:url>
+    <meta content={{seo_meta_title}} property=twitter:title>
+    <meta content={{seo_meta_desc}} property=twitter:description>
+    <meta content=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png property=twitter:image>
+    <link href=favicon.svg rel=icon type=image/svg+xml>
+    <link href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css rel=stylesheet>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js></script>
+    <script>
+      hljs.highlightAll()
+    </script>
+    <style>
+      :root {
+        --bg-color: #000000;
+        --sidebar-bg: #000000;
+        --main-bg: #000000;
+        --text-color: #ffffff;
+        --text-muted: #a1a1a6;
+        --accent-color: #2997ff;
+        --accent-hover: #51a8ff;
+        --border-color: #262629;
+        --code-bg: #111112;
+        --warning-bg: #1c1c1e;
+        --warning-border: #ffd60a;
+        --warning-text: #ffd60a
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.5;
+        font-weight: 400;
+        letter-spacing: -.022em;
+        display: flex
+      }
+
+      aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        background-color: var(--sidebar-bg);
+        padding: 4rem 2rem 2rem 3rem;
+        overflow-y: auto;
+        z-index: 100
+      }
+
+      aside ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: .5rem
+      }
+
+      aside li {
+        margin-bottom: .25rem
+      }
+
+      aside a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: .9rem;
+        font-weight: 400;
+        display: block;
+        padding: .5rem .75rem;
+        border-radius: 8px;
+        margin-left: -.75rem;
+        transition: color .15s ease, background-color .15s ease
+      }
+
+      aside a:hover {
+        color: #fff;
+        background-color: #1c1c1e
+      }
+
+      main {
+        margin-left: 280px;
+        max-width: 920px;
+        width: calc(100% - 280px);
+        padding: 4rem 5rem 4rem 3rem;
+        border-left: 1px solid var(--border-color);
+        min-height: 100vh
+      }
+
+      .doc-header {
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color)
+      }
+
+      .doc-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -.04em;
+        margin-bottom: .5rem;
+        color: #fff
+      }
+
+      .doc-header .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        font-weight: 400;
+        letter-spacing: -.015em
+      }
+
+      .doc-header .subtitle a {
+        color: var(--accent-color);
+        text-decoration: none
+      }
+
+      .doc-header .subtitle a:hover {
+        text-decoration: underline
+      }
+
+      section {
+        margin-bottom: 4.5rem;
+        scroll-margin-top: 4rem
+      }
+
+      h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -.021em;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: .75rem;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+        color: #fff
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        letter-spacing: -.011em;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        color: #fff
+      }
+
+      p {
+        margin-bottom: 1.25rem;
+        color: #e8e8ed;
+        font-size: 1rem
+      }
+
+      img.zoomable {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.75rem 0;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: #000;
+        cursor: zoom-in;
+        transition: transform .2s ease, border-color .2s ease
+      }
+
+      img.zoomable:hover {
+        border-color: var(--accent-color);
+        transform: scale(1.005)
+      }
+
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+        opacity: 0;
+        transition: opacity .25s ease
+      }
+
+      .lightbox.active {
+        display: flex;
+        opacity: 1
+      }
+
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 85%;
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        transform: scale(.95);
+        transition: transform .25s ease
+      }
+
+      .lightbox.active .lightbox-content {
+        transform: scale(1)
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 2rem;
+        color: var(--text-muted);
+        font-size: 2rem;
+        font-weight: 300;
+        cursor: pointer;
+        user-select: none;
+        transition: color .15s ease
+      }
+
+      .lightbox-close:hover {
+        color: #fff
+      }
+
+      pre {
+        background-color: var(--code-bg) !important;
+        margin: 1.5rem 0;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow: hidden
+      }
+
+      pre code {
+        padding: 1.5rem !important;
+        font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace !important;
+        font-size: .875rem !important;
+        line-height: 1.65 !important;
+        background: 0 0 !important
+      }
+
+      code:not(pre code) {
+        font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+        background-color: #1c1c1e;
+        padding: .2rem .4rem;
+        border-radius: 5px;
+        font-size: .875rem;
+        color: #fff;
+        border: 1px solid var(--border-color)
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2.5rem 0;
+        font-size: .9rem;
+        background: 0 0;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow: hidden
+      }
+
+      td,
+      th {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border-color);
+        text-align: left
+      }
+
+      th {
+        background-color: #111112;
+        color: #fff;
+        font-weight: 500
+      }
+
+      td {
+        color: #e8e8ed
+      }
+
+      tr:last-child td {
+        border-bottom: none
+      }
+
+      tr:nth-child(even) {
+        background-color: #0a0a0a
+      }
+
+      .warning-callout {
+        background-color: var(--warning-bg);
+        border: 1px solid #48484a;
+        border-left: 4px solid var(--warning-border);
+        padding: 1.25rem 1.5rem;
+        margin: 1.75rem 0;
+        border-radius: 10px;
+        font-size: .95rem
+      }
+
+      .warning-callout p {
+        margin: 0;
+        color: #fff
+      }
+
+      .warning-callout strong {
+        color: var(--warning-text);
+        font-weight: 600
+      }
+
+      ol,
+      ul.doc-list {
+        margin-left: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: #e8e8ed
+      }
+
+      ol li,
+      ul.doc-list li {
+        margin-bottom: .5rem;
+        padding-left: .25rem
+      }
+
+      main a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color .15s ease
+      }
+
+      main a:hover {
+        color: var(--accent-hover)
+      }
+
+      @media (max-width:960px) {
+        body {
+          flex-direction: column
+        }
+
+        aside {
+          position: static;
+          width: 100%;
+          height: auto;
+          padding: 3rem 2rem 1rem 2rem
+        }
+
+        main {
+          margin-left: 0;
+          width: 100%;
+          padding: 2rem;
+          border-left: none;
+          border-top: 1px solid var(--border-color)
+        }
+      }
+    </style>
+    <aside>
+      <nav aria-label="{{nav_aria_label}}">
+        <ul>
+          <li><a href=#overview>{{nav_overview}}</a>
+          <li><a href=#blueprints>{{nav_blueprints}}</a>
+          <li><a href=#cpp>{{nav_cpp}}</a>
+          <li><a href=#troubleshooting>{{nav_troubleshooting}}</a>
+          <li><a href=#support>{{nav_support}}</a>
+        </ul>
+      </nav>
+    </aside>
+    <main>
+      <header class=doc-header>
+        <h1>{{target_keyword_h1}}</h1>
+        <div class=subtitle>{{subtitle_text}} • {{subtitle_download_via}} <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>{{fab_marketplace}}</a></div>
+      </header>
+      <section id=overview>
+        <h2>{{overview_title}}</h2>
+        <p><strong>BlueprintWebSocket</strong> {{overview_desc}} {{use_case_intro}}.
+        <p>{{overview_download_prefix}} <a href=https://www.fab.com/listings/028b81de-6110-4a3f-90e9-eda0db1013b8 target=_blank>{{fab_marketplace}}</a> {{overview_download_suffix}}
+        <ul class=doc-list>
+          <li><strong>{{overview_li_blueprints_cpp_label}}</strong> {{overview_li_blueprints_cpp_desc}}
+          <li><strong>{{overview_li_async_label}}</strong> {{overview_li_async_desc}}
+          <li><strong>{{overview_li_gc_label}}</strong> {{overview_li_gc_desc}}
+          <li><strong>{{overview_li_payloads_label}}</strong> {{overview_li_payloads_desc}}
+        </ul>
+      </section>
+      <section id=blueprints>
+        <h2>{{blueprints_title}}</h2>
+        <h3>{{blueprints_connecting_title}}</h3>
+        <p>{{blueprints_connecting_desc}}</p><img alt="{{blueprints_connecting_img_alt}}" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServer.png>
+        <p>{{blueprints_custom_desc}}</p><img alt="{{blueprints_custom_img_alt}}" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/ConnectToServerWithoutHelper.png>
+        <h3>{{blueprints_sending_title}}</h3><img alt="{{blueprints_sending_img_alt}}" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/SendMessage.png>
+        <h3>{{blueprints_reconnect_title}}</h3>
+        <p>{{blueprints_reconnect_desc}}</p><img alt="{{blueprints_reconnect_img_alt}}" class=zoomable src=https://raw.githubusercontent.com/Pandoa/BlueprintWebSocket/refs/heads/master/Images/AutoReconnect.png>
+      </section>
+      <section id=cpp>
+        <h2>{{cpp_title}}</h2>
+        <h3>{{cpp_adding_module_title}}</h3>
+        <p>{{cpp_adding_module_desc_prefix}}<code>&lt;ProjectName>.Build.cs</code>{{cpp_adding_module_desc_suffix}}
+        <pre><code class=language-csharp>PublicDependencyModuleNames.Add("BlueprintWebSocket");</code></pre>
+        <h3>{{cpp_include_title}}</h3>
+        <p>{{cpp_include_desc}}
+        <pre><code class=language-cpp>#include "BlueprintWebSocketWrapper.h"</code></pre>
+        <h3>{{cpp_creating_title}}</h3>
+        <p>{{cpp_creating_desc}}
+        <pre><code class=language-cpp>UBlueprintWebSocket* const WebSocket = UBlueprintWebSocket::CreateWebSocket();</code></pre>
+        <h3>{{cpp_configuring_title}}</h3>
+        <p>{{cpp_configuring_desc}}
+        <pre><code class=language-cpp>// {{cpp_configuring_comment_merge}}
+WebSocket->SetHeaders(const TMap&lt;FString, FString> & InHeaders);
+
+// {{cpp_configuring_comment_add}}
+WebSocket->AddHeader(const FString & Header, const FString & Value);
+
+// {{cpp_configuring_comment_remove}}
+WebSocket->RemoveHeader(const FString & HeaderToRemove);</code></pre>
+        <h3>{{cpp_events_title}}</h3>
+        <p>{{cpp_events_desc}}
+        <table>
+          <thead>
+            <tr>
+              <th>{{cpp_events_th_event_name}}
+              <th>{{cpp_events_th_signature}}
+              <th>{{cpp_events_th_description}}
+          <tbody>
+            <tr>
+              <td><code>OnConnectedEvent</code>
+              <td><code>void Func()</code>
+              <td>{{cpp_events_on_connected_desc}}
+            <tr>
+              <td><code>OnConnectionErrorEvent</code>
+              <td><code>void Func(const FString & Error)</code>
+              <td>{{cpp_events_on_connection_error_desc}}
+            <tr>
+              <td><code>OnCloseEvent</code>
+              <td><code>void Func(int64 StatusCode, const FString & Reason, bool bWasClean)</code>
+              <td>{{cpp_events_on_close_desc}}
+            <tr>
+              <td><code>OnMessageEvent</code>
+              <td><code>void Func(const FString & Message)</code>
+              <td>{{cpp_events_on_message_desc}}
+            <tr>
+              <td><code>OnRawMessageEvent</code>
+              <td><code>void Func(const TArray&lt;uint8> & Data, int32 BytesRemaining)</code>
+              <td>{{cpp_events_on_raw_message_desc}}
+            <tr>
+              <td><code>OnMessageSentEvent</code>
+              <td><code>void Func(const FString & Message)</code>
+              <td>{{cpp_events_on_message_sent_desc}}
+        </table>
+        <p>{{cpp_events_delegate_note_prefix}} <code>Dynamic Multicast Delegates</code>{{cpp_events_delegate_note_suffix}} <code>UFUNCTION()</code> {{cpp_events_delegate_note_suffix2}}
+        <pre><code class=language-cpp>UCLASS()
+class MYGAME_API UMyClass : public UObject
+{
+    GENERATED_BODY()
+public:
+    // {{cpp_events_bind_comment}}
+    void BindEvents();
+private:
+    // {{cpp_events_callbacks_comment}}
+    UFUNCTION() void OnConnected();
+    UFUNCTION() void OnConnectionError(const FString & Error);
+    UFUNCTION() void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
+    UFUNCTION() void OnMessage(const FString & Message);
+    UFUNCTION() void OnRawMessage(const TArray&lt;uint8> & Data, int32 BytesRemaining);
+    UFUNCTION() void OnMessageSent(const FString & Message);
+private:
+    UPROPERTY()
+    UBlueprintWebSocket* WebSocket;
+};
+
+void UMyClass::BindEvents()
+{
+    // {{cpp_events_bind_dynamic_comment}}
+    WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
+    WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
+    WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
+    WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
+}</code></pre>
+        <div class=warning-callout>
+          <p><strong>{{cpp_warning_notice}}</strong> {{cpp_warning_bind_recommend}}
+        </div>
+        <h3>{{cpp_connecting_title}}</h3>
+        <p>{{cpp_connecting_desc}}
+        <pre><code class=language-cpp>WebSocket->Connect({{connection_url_sample}}, TEXT("ws"));</code></pre>
+        <p>{{cpp_connecting_check_desc}}
+        <pre><code class=language-cpp>if (WebSocket->IsConnected())
+{
+    // {{cpp_connecting_comment_connected}}
+}
+else
+{
+    // {{cpp_connecting_comment_not_connected}}
+}</code></pre>
+        <div class=warning-callout>
+          <p><strong>{{cpp_warning_notice}}</strong> {{cpp_connecting_warning_prefix}} <code>IsConnected()</code> {{cpp_connecting_warning_middle}} <code>OnConnectedEvent</code> {{cpp_connecting_warning_suffix}}
+        </div>
+        <h3>{{cpp_sending_title}}</h3>
+        <p>{{cpp_sending_desc}}
+        <ol>
+          <li><code>void SendMessage(const FString & Message)</code>{{cpp_sending_li_send_message_suffix}}
+          <li><code>void SendRawMessage(const TArray&lt;uint8> & Message, const bool bIsBinary)</code>{{cpp_sending_li_send_raw_suffix}}
+        </ol>
+        <p>{{cpp_sending_impl_sample}}
+        <pre><code class=language-cpp>// {{cpp_sending_comment_data}}
+const FString       StringMessage = TEXT("Hello Server");
+const TArray&lt;uint8> BinaryMessage = { 0, 1, 2, 3, 4, 5 };
+
+// {{cpp_sending_comment_send}}
+WebSocket->SendMessage   (StringMessage);
+WebSocket->SendRawMessage(BinaryMessage);</code></pre>
+        <h3>{{cpp_full_example_title}}</h3>
+        <h4>{{cpp_class_h_title}}</h4>
+        <pre><code class=language-cpp>#pragma once
+
+#include "CoreMinimal.h"
+#include "MyClass.generated.h"
+
+class UBlueprintWebSocket;
+
+/**
+ * {{cpp_class_doc_comment}}
+ **/
+UCLASS()
+class MYGAME_API UMyClass : public UObject
+{
+    GENERATED_BODY()
+public:
+    void InitializeAndConnectSocket();
+private:
+    UFUNCTION() 
+    void OnConnected();
+    UFUNCTION() 
+    void OnConnectionError(const FString & Error);
+    UFUNCTION() 
+    void OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean);
+    UFUNCTION() 
+    void OnMessage(const FString & Message);
+    UFUNCTION()
+    void OnRawMessage(const TArray&lt;uint8> & Data, int32 BytesRemaining);
+    UFUNCTION()
+    void OnMessageSent(const FString & Message);
+private:
+    UPROPERTY()
+    UBlueprintWebSocket* WebSocket;
+};</code></pre>
+        <h4>{{cpp_class_cpp_title}}</h4>
+        <pre><code class=language-cpp>#include "MyClass.h"
+#include "BlueprintWebSocketWrapper.h"
+
+void UMyClass::InitializeAndConnectSocket()
+{
+    WebSocket = UBlueprintWebSocket::CreateWebSocket();
+    
+    WebSocket->OnConnectedEvent      .AddDynamic(this, &UMyClass::OnConnected);
+    WebSocket->OnConnectionErrorEvent.AddDynamic(this, &UMyClass::OnConnectionError);
+    WebSocket->OnCloseEvent          .AddDynamic(this, &UMyClass::OnClosed);
+    WebSocket->OnMessageEvent        .AddDynamic(this, &UMyClass::OnMessage);
+    WebSocket->OnRawMessageEvent     .AddDynamic(this, &UMyClass::OnRawMessage);
+    WebSocket->OnMessageSentEvent    .AddDynamic(this, &UMyClass::OnMessageSent);
+
+    WebSocket->AddHeader(TEXT("SomeHeader"), TEXT("SomeValue"));
+    WebSocket->Connect({{connection_url_sample}}, TEXT("ws"));
+}
+
+void UMyClass::OnConnected()
+{
+    UE_LOG(LogTemp, Log, TEXT("We are connected!"));
+    WebSocket->SendMessage(TEXT("Hello Server!"));
+}
+
+void UMyClass::OnConnectionError(const FString & Error)
+{
+    UE_LOG(LogTemp, Error, TEXT("Failed to connect: %s."), *Error);
+}
+
+void UMyClass::OnClosed(int64 StatusCode, const FString & Reason, bool bWasClean)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Connection closed: %d:%s. Clean: %d"), StatusCode, *Reason, bWasClean);
+}
+
+void UMyClass::OnMessage(const FString & Message)
+{
+    UE_LOG(LogTemp, Log, TEXT("New message: %s"), *Message);
+}
+
+void UMyClass::OnRawMessage(const TArray&lt;uint8> & Data, int32 BytesRemaining)
+{
+    UE_LOG(LogTemp, Log, TEXT("New binary message: %d bytes and %d bytes remaining."), Data.Num(), BytesRemaining);
+}
+
+void UMyClass::OnMessageSent(const FString & Message)
+{
+    UE_LOG(LogTemp, Log, TEXT("We just sent %s to the server."), *Message);
+}</code></pre>
+      </section>
+      <section id=troubleshooting>
+        <h2>{{troubleshooting_title}}</h2>
+        <h3>{{troubleshooting_ssl_title_prefix}} <code>{{troubleshooting_ssl_title_code}}</code></h3>
+        <p>{{troubleshooting_ssl_desc}}
+        <ol>
+          <li>{{troubleshooting_step1_prefix}}<code>.pem</code>{{troubleshooting_step1_middle}} <code>&lt;Project>/Content/Certificates/cacert.pem</code>.
+          <li>{{troubleshooting_step2_prefix}} <strong>{{troubleshooting_step2_middle}}</strong> ><strong>{{troubleshooting_step2_middle2}}</strong> ><strong>{{troubleshooting_step2_middle3}}</strong> {{troubleshooting_step2_suffix}}
+        </ol>
+      </section>
+      <section id=support>
+        <h2>{{support_title}}</h2>
+        <p>{{support_desc_prefix}} <a href="mailto:pandores.marketplace+BlueprintWebSocket@gmail.com?subject=BlueprintWebSocket%20-%20">pandores.marketplace@gmail.com</a>.
+      </section>
+    </main>
+    <div class=lightbox aria-label="{{lightbox_aria_label}}" id=imageViewer role=dialog><span class=lightbox-close id=closeViewer>×</span><img alt="" class=lightbox-content src="" id=viewerImg></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const t = document.getElementById("imageViewer"),
+          c = document.getElementById("viewerImg"),
+          e = document.getElementById("closeViewer"),
+          d = document.querySelectorAll("img.zoomable");
+        d.forEach(e => {
+          e.addEventListener("click", () => {
+            c.src = e.src, c.alt = e.alt, t.classList.add("active"), document.body.style.overflow = "hidden"
+          })
+        });
+        const n = () => {
+          t.classList.remove("active"), document.body.style.overflow = "", setTimeout(() => {
+            c.src = ""
+          }, 250)
+        };
+        t.addEventListener("click", e => {
+          e.target !== c && n()
+        }), e.addEventListener("click", n), document.addEventListener("keydown", e => {
+          "Escape" === e.key && t.classList.contains("active") && n()
+        })
+      })
+    </script>
+    <script>
+      (function () {
+        function track(name, params) {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", name, Object.assign({
+              lang: document.documentElement.lang || "unknown"
+            }, params || {}))
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll("aside a[href^='#']").forEach(function (a) {
+            a.addEventListener("click", function () {
+              track("nav_click", {
+                section: (a.getAttribute("href") || "").slice(1),
+                link_text: (a.textContent || "").trim()
+              })
+            })
+          });
+          document.querySelectorAll("main a[href]").forEach(function (a) {
+            a.addEventListener("click", function () {
+              var href = a.getAttribute("href") || "";
+              var linkText = (a.textContent || "").trim().slice(0, 80);
+              if (href.indexOf("mailto:") === 0) {
+                track("email_click", { link_text: linkText });
+                return
+              }
+              if (/^https?:\/\//i.test(href)) {
+                var domain = "";
+                try { domain = new URL(href, location.href).hostname } catch (err) {}
+                track("outbound_click", {
+                  link_url: href,
+                  link_domain: domain,
+                  link_text: linkText
+                });
+                if (domain === "fab.com" || domain === "www.fab.com") {
+                  track("fab_marketplace_click", { link_url: href })
+                }
+                if (domain === "github.com") {
+                  track("github_link_click", { link_url: href })
+                }
+              }
+            })
+          });
+          document.querySelectorAll("img.zoomable").forEach(function (img) {
+            img.addEventListener("click", function () {
+              track("image_zoom", {
+                image_src: img.currentSrc || img.src,
+                image_alt: img.alt || ""
+              })
+            })
+          });
+          document.querySelectorAll("pre code").forEach(function (block) {
+            block.addEventListener("click", function () {
+              var langClass = Array.prototype.slice.call(block.classList)
+                .filter(function (c) { return c.indexOf("language-") === 0 })[0];
+              track("code_block_click", {
+                code_language: langClass ? langClass.replace("language-", "") : "unknown"
+              })
+            })
+          });
+          if ("IntersectionObserver" in window) {
+            var seen = {};
+            var observer = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                var id = entry.target.id;
+                if (entry.isIntersecting && id && !seen[id]) {
+                  seen[id] = true;
+                  track("section_view", { section: id })
+                }
+              })
+            }, { threshold: 0.5 });
+            document.querySelectorAll("main section[id]").forEach(function (section) {
+              observer.observe(section)
+            })
+          }
+        })
+      })()
+    </script>
+    <script>
+! function() {
+  if (!0 !== window.puppeteer && !navigator.webdriver && "localhost" !== location.hostname && "127.0.0.1" !== location.hostname) {
+    window.dataLayer = window.dataLayer || [], (window.gtag = a)("js", new Date);
+    const n = document.createElement("script");
+    function a() {
+      dataLayer.push(arguments)
+    }
+    n.async = !0, n.src = "https://www.googl" + "eta" + "gmanager.com/g" + "tag/js" + "?id=G-" + "EGXMT0XTHL", n.onload = function() {
+      a("config", "G-EGXMT0XTHL")
+    }, document.head.appendChild(n)
+  }
+}()
+    </script>
+    </body>
+  </html>
